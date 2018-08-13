@@ -1,0 +1,42 @@
+<project name="submitServer" default="canonical" basedir=".">
+	
+	<property name="setup.name" value="test-setup.jar"/>
+	<property name="canonical.name" value="canonical.jar"/>
+	
+	<!--
+	Use this target to produce a canonical solution for uploading over the web
+	-->
+	<target name="canonical">
+		<jar destfile="${canonical.name}" update="false">
+			<fileset dir="."
+				includes="src/priorityqueue/*.java" 
+				excludes="src/tests/*.java "/>
+		</jar>
+	</target>
+	
+	<target name="test.setup">
+		<jar destfile="${setup.name}" update="false">
+			<!--
+			Classfiles: be sure to exclude whatever the students are supposed to
+			implement!
+			-->
+			<fileset dir="bin"
+				includes="tests/*.class"
+				excludes="priorityqueue/*.class"/>
+			<!--
+			test.properties and security.policy
+			-->
+			<fileset dir="." 
+				includes="test.properties,security.policy"/>
+			<!-- Other resources -->
+			<fileset dir="."
+				includes=""/>
+		</jar>
+	</target>
+	
+	<target name="skeleton">
+		<jar destfile="skeleton.jar" update="true">
+			<fileset dir="skeleton" includes="src/**/*java"/>
+		</jar>
+	</target>
+</project>
